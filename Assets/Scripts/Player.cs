@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     private float speedPers = 1;
     private int direction = 1;
 
-    private Animator _animator;
+    public Animator _animator;
     public Animator animator { get { return _animator; } }
 
     private Rigidbody2D rb;
@@ -22,39 +22,45 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Position();
-    }
-
-
-    void Position()
-    {
         if (Input.GetKey(KeyCode.D))
         {
-            // rb.gameObject.transform.localScale = new Vector3(1, 1, 1);
-
-            _animator.SetBool("run", true);
-
-            rb.velocity = new Vector2(direction * speedPers, rb.velocity.y);
+            Right();
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            // rb.gameObject.transform.localScale = new Vector3(1, 1, 1);
-
-            _animator.SetBool("run", true);
-
-            rb.velocity = new Vector2(-direction * speedPers, rb.velocity.y);
+            Left();
         }
 
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
         {
+            Jump();
+        }
+    }
+
+
+   public void Right ()
+    {
+        _animator.SetBool("run", true);
+
+        rb.velocity = new Vector2(direction * speedPers, rb.velocity.y);
+
+    }
+
+            
+    public void Left()
+    {
+            _animator.SetBool("run", true);
+
+            rb.velocity = new Vector2(-direction * speedPers, rb.velocity.y);
+    }
+ 
+   public void Jump ()
+    {
             if (jump)
             {
                 _animator.SetBool("run", false);
                 rb.velocity = new Vector2(rb.velocity.x, 3);
             }
-
-
-        }
     }
 }
